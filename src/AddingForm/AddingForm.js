@@ -4,23 +4,23 @@ import styles from './AddingForm.module.css';
 
 class AddingForm extends Component {
     static propTypes = {
-      addItem: PropTypes.func.isRequired,
+      onAdd: PropTypes.func.isRequired,
     };
 
     state = {
       itemTitle: '',
     };
 
-    createNewItem = (e) => {
+    handleOnChange = (e) => {
       const { value } = e.target;
       this.setState({
         itemTitle: value,
       });
     };
 
-    addItem = (e) => {
+    handleAdd = (e) => {
       e.preventDefault();
-      this.props.addItem(this.state.itemTitle);
+      this.props.onAdd(this.state.itemTitle);
       this.setState({
         itemTitle: '',
       });
@@ -29,8 +29,8 @@ class AddingForm extends Component {
     render() {
       return (
         <form className={styles.form}>
-          <input type="text" onChange={this.createNewItem} value={this.state.itemTitle} />
-          <button type="button" onClick={this.addItem}>Add item</button>
+          <input type="text" onChange={this.handleOnChange} value={this.state.itemTitle} />
+          <button type="button" onClick={this.handleAdd}>Add item</button>
         </form>
       );
     }

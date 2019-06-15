@@ -21,29 +21,33 @@ class App extends Component {
       ],
     };
 
-    handleInputChange = (e) => {
-      const id = e.target.name;
-      const updatedItem = this.state.list.filter(item => item.id === +id)[0];
-      updatedItem.checked = !updatedItem.checked;
+    onChange = (id) => {
+      const indexOfItem = this.state.list.findIndex(item => item.id === +id);
+      // eslint-disable-next-line react/no-access-state-in-setstate
+      const newList = [...this.state.list];
+      // eslint-disable-next-line max-len
+      newList[indexOfItem] = { ...this.state.list[indexOfItem], checked: !this.state.list[indexOfItem] };
+
       this.setState({
-        list: [...this.state.list,
-        ],
+        list: newList,
       });
     };
 
-    deleteItem = (idToDelete) => {
+    onDelete = (idToDelete) => {
       this.setState({
+        // eslint-disable-next-line react/no-access-state-in-setstate
         list: this.state.list.filter(item => item.id !== idToDelete),
       });
     };
 
-    addItem = (e) => {
+    onAdd = (title) => {
       const createdItem = {
         id: incrementedId + 1,
-        title: e,
+        title,
         checked: false,
       };
       this.setState({
+        // eslint-disable-next-line react/no-access-state-in-setstate
         list: [...this.state.list, createdItem],
       });
       incrementedId += 1;
@@ -53,10 +57,10 @@ class App extends Component {
       return (
         <div className={styles.app}>
           <div className={styles.title}>ToDo List</div>
-          <AddingForm addItem={this.addItem} />
+          <AddingForm onAdd={this.onAdd} />
           <div className={styles.items}>
             {this.state.list.map(item => (
-              <Item key={item.id} item={item} handleInputChange={this.handleInputChange} deleteItem={this.deleteItem} />
+              <Item key={item.id} item={item} onChange={this.onChange} onDelete={this.onDelete} />
             ))}
           </div>
         </div>

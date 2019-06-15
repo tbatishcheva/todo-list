@@ -4,14 +4,19 @@ import styles from './Item.module.css';
 
 class Item extends Component {
     static propTypes = {
+      // eslint-disable-next-line react/forbid-prop-types
       item: PropTypes.object.isRequired,
-      handleInputChange: PropTypes.func.isRequired,
-      deleteItem: PropTypes.func.isRequired,
+      onChange: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired,
     };
 
-    deleteItem = () => {
-      this.props.deleteItem(this.props.item.id);
-    }
+    handleChange = () => {
+      this.props.onChange(this.props.item.id);
+    };
+
+    handleDelete = () => {
+      this.props.onDelete(this.props.item.id);
+    };
 
     render() {
       return (
@@ -19,11 +24,10 @@ class Item extends Component {
           <input
             type="checkbox"
             checked={this.props.item.checked}
-            onChange={this.props.handleInputChange}
-            name={this.props.item.id}
+            onChange={this.handleChange}
           />
-          <div className={`${this.props.item.checked ? styles.lineThrough : null} ${styles.title}`}>{this.props.item.title}</div>
-          <button onClick={this.deleteItem}>Delete item</button>
+          <div className={`${this.props.item.checked ? styles.checkedItem : ''} ${styles.title}`}>{this.props.item.title}</div>
+          <button type="button" onClick={this.handleDelete}>Delete item</button>
         </div>
 
       );

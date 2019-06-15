@@ -10,6 +10,6 @@
     padding: 0 5px;
 }
 
-.lineThrough {
+.checkedItem {
     text-decoration: line-through;
 }
