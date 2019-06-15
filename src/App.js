@@ -26,7 +26,7 @@ class App extends Component {
       // eslint-disable-next-line react/no-access-state-in-setstate
       const newList = [...this.state.list];
       // eslint-disable-next-line max-len
-      newList[indexOfItem] = { ...this.state.list[indexOfItem], checked: !this.state.list[indexOfItem] };
+      newList[indexOfItem] = { ...this.state.list[indexOfItem], checked: !this.state.list[indexOfItem].checked };
 
       this.setState({
         list: newList,
